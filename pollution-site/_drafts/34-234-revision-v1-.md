@@ -1,0 +1,219 @@
+---
+id: 296
+date: '2022-08-01T22:59:48+00:00'
+author: ghostdog
+layout: revision
+guid: 'http://localhost:8888/wordpress/?p=296'
+permalink: '/?p=296'
+---
+
+<div class="wp-block-cover alignfull" style="min-height:879px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-60 has-background-dim"></span><video autoplay="" class="wp-block-cover__video-background intrinsic-ignore" data-object-fit="cover" loop="" muted="" playsinline="" src="http://localhost:8888/wordpress/wp-content/uploads/2022/07/output.mp4"></video><div class="wp-block-cover__inner-container">## Pollution.
+
+In 2021 &amp; 2022, we all saw how much human activity influenced pollution.  
+We saw dolphins return to Venice, cities air clear, and millions of tonnes of CO2 and other pollutants  
+were prevented from being emitted during an international series of lockdowns in order to control the virus.
+
+This intrigued me, as even with climate change continuing to worsen, there is limited public awareness on the health impact of pollution
+
+To help this, I decided to do a short case study on the highway nearest to me, and see what pollutants I was exposed to, if I were to live at various distances from the freeway.
+
+<div class="wp-container-572 wp-block-columns alignfull are-vertically-aligned-bottom"><div class="wp-container-571 wp-block-column is-vertically-aligned-bottom"></div></div></div></div>Video Courtesy of [Neculaes Teodor](https://www.youtube.com/c/NeculaesTeodor)
+
+- - - - - -
+
+> The strongest governments on earth cannot clean up pollution by themselves. They must rely on each ordinary person, like you and me, on our choices
+> 
+> <cite>Chai Jing</cite>
+
+- - - - - -
+
+It is well known that living near a highway massively increases your chance of various negative outcomes and health effects, a majority of which can be traced back to 2 contaminants, excess CO2 in the air, and VOC (Volatile Organic Compounds), which are harmful compounds released by many industrial processes, including from cars!   
+  
+ These include effects such as:
+
+<div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/9502566085_67cfc4839c_o-922x1024.png);background-position:69% 50%">![Woman with waste covering top of face](http://localhost:8888/wordpress/wp-content/uploads/2022/07/9502566085_67cfc4839c_o-922x1024.png)</figure><div class="wp-block-media-text__content">**Dementia**
+
+  
+“[The Violence of Organized Forgetting](https://www.flickr.com/photos/42269094@N05/9502566085)” by [Truthout.org](https://www.flickr.com/photos/42269094@N05) is licensed under [CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/0d7d9bb-717x1024.jpeg);background-position:50% 50%">![Person at piano with head in hands ](http://localhost:8888/wordpress/wp-content/uploads/2022/07/0d7d9bb-717x1024.jpeg)</figure><div class="wp-block-media-text__content">**Depression**
+
+  
+“[Depressed musician vintage drawing](https://www.rawpixel.com/image/573060/depressed-musician-vintage-drawing)” by The British Library is marked with [CC0 1.0 ](https://creativecommons.org/publicdomain/zero/1.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/StockSnap_27XHUPB48N-1024x685.jpg);background-position:55.00000000000001% 62%">![Person gripping hair while looking at laptop](http://localhost:8888/wordpress/wp-content/uploads/2022/07/StockSnap_27XHUPB48N-1024x685.jpg)</figure><div class="wp-block-media-text__content">**Stress**
+
+  
+“[People Man Photo](https://stocksnap.io/photo/27XHUPB48N)” by [Tim Gouw](https://punttim.carrd.co/) is marked with [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/7176812530_0e6ea0c5b3_o-scaled.jpg);background-position:53% 28.999999999999996%">![Brain with lightning bolts hitting it](http://localhost:8888/wordpress/wp-content/uploads/2022/07/7176812530_0e6ea0c5b3_o-scaled.jpg)</figure><div class="wp-block-media-text__content">**Cognitive Impairment**
+
+  
+“[Brain with lightning bolts broken off](https://www.flickr.com/photos/11133146@N03/7176812530)” by [Indiana Public Media](https://www.flickr.com/photos/11133146@N03) is licensed under [CC BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/5347629183_fc5961fb4c_o-1024x683.jpg);background-position:46% 47%">![Ventilator Photo](http://localhost:8888/wordpress/wp-content/uploads/2022/07/5347629183_fc5961fb4c_o-1024x683.jpg)</figure><div class="wp-block-media-text__content">**Asthma**
+
+  
+“[Asthma Inhaler (Object)](https://www.flickr.com/photos/52498245@N03/5347629183)” by [Jenn Durfey](https://www.flickr.com/photos/52498245@N03) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/5280410308_1d835df9cd_o.jpg);background-position:50% 56.99999999999999%">![Influenza virus photo](http://localhost:8888/wordpress/wp-content/uploads/2022/07/5280410308_1d835df9cd_o.jpg)</figure><div class="wp-block-media-text__content">**Respiratory Viruses**
+
+  
+“[Influenza virus](https://www.flickr.com/photos/56598064@N06/5280410308)” by [Sanofi Pasteur](https://www.flickr.com/photos/56598064@N06) is licensed under [CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nd-nc/2.0/jp/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/221941723_72b3e61d40_o-874x1024.jpg);background-position:46% 22%">![Dot painting of heart](http://localhost:8888/wordpress/wp-content/uploads/2022/07/221941723_72b3e61d40_o-874x1024.jpg)</figure><div class="wp-block-media-text__content">**Heart attack &amp; stroke**
+
+  
+“[Human Heart W/ color](https://www.flickr.com/photos/75423010@N00/221941723)” by [brick red](https://www.flickr.com/photos/75423010@N00) is licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/28264909965_50a62be18e_o-1024x984.jpg);background-position:50% 50%">![Stylized breast cancer cell](http://localhost:8888/wordpress/wp-content/uploads/2022/07/28264909965_50a62be18e_o-1024x984.jpg)</figure><div class="wp-block-media-text__content">**Cancer**
+
+  
+“[Breast Cancer Cell](https://www.flickr.com/photos/132318516@N08/28264909965)” by [National Institutes of Health (NIH)](https://www.flickr.com/photos/132318516@N08) is licensed under [CC BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignfull has-media-on-the-right is-stacked-on-mobile is-image-fill" data-aos="fade" data-aos-duration="950" style="grid-template-columns:auto 53%"><figure class="wp-block-media-text__media" style="background-image:url(http://localhost:8888/wordpress/wp-content/uploads/2022/07/26814368388_ca3b94d672_k-1024x683.jpg);background-position:52% 100%">![Photo of graveyard](http://localhost:8888/wordpress/wp-content/uploads/2022/07/26814368388_ca3b94d672_k-1024x683.jpg)</figure><div class="wp-block-media-text__content">**An early grave**
+
+  
+“[Cemetery](https://www.flickr.com/photos/69743899@N07/26814368388)” by [x1klima](https://www.flickr.com/photos/69743899@N07) is licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse).
+
+</div></div><div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200" style="grid-template-columns:auto 61%"><figure class="wp-block-media-text__media">![Photo of Boondall wetlands, Brisbane](http://localhost:8888/wordpress/wp-content/uploads/2022/07/7114627407_b15942d395_k-1024x683.jpg)</figure><div class="wp-block-media-text__content">Many people in Melbourne live in or near the wetlands. This is surprisingly effective for the reduction of exposure to highway-based pollution.
+
+This is probably due to both the increased amount of plants, as well as distance.
+
+</div></div><div class="wp-block-media-text alignwide is-stacked-on-mobile" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200" style="grid-template-columns:61% auto"><figure class="wp-block-media-text__media">![Empty graph](http://localhost:8888/wordpress/wp-content/uploads/2022/07/graph-bg-2.png)</figure><div class="wp-block-media-text__content">This is the scatter graph for exposure in the wetlands, which is…. boring… But healthy!  
+All of our data is at (400, 0), which is why we cannot see it.  
+This means that at only about 800 meters from the highway, the health effects of living near the highway are much lower, and below the threshold of detection for my study!
+
+</div></div><div class="wp-container-575 wp-block-columns alignwide are-vertically-aligned-center"><div class="wp-container-573 wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%">But what about somewhere a bit closer, how about ~300 meters away? I live that far away, and this is what I got!  
+As you can see, this is a much more impactful measurement, meaning that at 300 meters, health effects from pollution are still very much observable…
+
+</div><div class="wp-container-574 wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><div class="tableauPlaceholder" id="viz1658896569171" style="position: relative"><noscript>[![ ](https://public.tableau.com/static/images/Se/Separateplots/Home/1_rss.png)](#)</noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"></param><param name="embed_code_version" value="3"></param><param name="site_root" value=""></param><param name="name" value="Separateplots/Home"></param><param name="tabs" value="no"></param><param name="toolbar" value="no"></param><param name="static_image" value="https://public.tableau.com/static/images/Se/Separateplots/Home/1.png"></param><param name="animate_transition" value="yes"></param><param name="display_static_image" value="yes"></param><param name="display_spinner" value="yes"></param><param name="display_overlay" value="yes"></param><param name="display_count" value="yes"></param><param name="language" value="en-GB"></param></object></div> <script type="text/javascript">                    var divElement = document.getElementById('viz1658896569171');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></div></div><div class="wp-container-576 is-vertical wp-block-group">Ok so what about the “worst case” scenario? What if we lived only 30 meters from a major highway?
+
+Surely this is absolutely ridiculous, who would ever live that close to a highway?
+
+<figure class="wp-block-image size-full" data-aos="fade" data-aos-delay="3000" data-aos-duration="1150">![Chinese Highway suspension bridge with people living under it](http://localhost:8888/wordpress/wp-content/uploads/2022/07/32629eb0adcdf9d06bd74bd6d0374ae7-1-scaled.webp)</figure></div>  
+  
+Well uh… These people do. Living right under china’s largest highway.  
+So what effect might this have on their health?
+
+<div class="wp-container-579 wp-block-columns alignwide are-vertically-aligned-center"><div class="wp-container-577 wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%">Well uhh… It doesn’t look the best…
+
+</div><div class="wp-container-578 wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><div class="tableauPlaceholder" id="viz1658896239861" style="position: relative"><noscript>[![ ](https://public.tableau.com/static/images/Se/Separateplots/Highway/1_rss.png)](#)</noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"></param><param name="embed_code_version" value="3"></param><param name="site_root" value=""></param><param name="name" value="Separateplots/Highway"></param><param name="tabs" value="no"></param><param name="toolbar" value="no"></param><param name="static_image" value="https://public.tableau.com/static/images/Se/Separateplots/Highway/1.png"></param><param name="animate_transition" value="yes"></param><param name="display_static_image" value="yes"></param><param name="display_spinner" value="yes"></param><param name="display_overlay" value="yes"></param><param name="display_count" value="yes"></param><param name="language" value="en-GB"></param></object></div> <script type="text/javascript">                    var divElement = document.getElementById('viz1658896239861');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></div></div><div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media">![Overlapping of the 2 scatter plots, with highway being green and blue being my house.](http://localhost:8888/wordpress/wp-content/uploads/2022/07/Screen-Shot-2022-07-27-at-2.56.23-pm-1024x761.png)</figure><div class="wp-block-media-text__content">There’s a small, but significant difference between the 2 datasets, as displayed on the graph to the left.
+
+Green being the highway “Worst case” and blue being only 330m away.
+
+</div></div><div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile"><figure class="wp-block-media-text__media">![Graph showing exponential curve, with arrows pointing near the bottom labeled "3m" and "330m", with an arrow labeled with "800m" near the top.](http://localhost:8888/wordpress/wp-content/uploads/2022/07/Screen-Shot-2022-07-28-at-9.00.56-am-1-1014x1024.png)</figure><div class="wp-block-media-text__content">This shows us that the distance does help with pollution levels but seems to do so in an exponential way, as shown in the graphic to the left.
+
+This means that there should be an intermediate value that follows this curve if my theory is correct.
+
+Further research is needed to confirm this exact theory, however, it is known that at 800 meters, the measured pollutants fall below what can be reasonably detected  
+(Originally I planned for a sensor at ~400m as well, however supply chain issues prevented this).
+
+</div></div>So what should we do?  
+Should we all panic and move as far away from the highway as possible?  
+No! There are steps you can take to reduce the impact if you need to live near a highway, things such as wearing masks, using air filters for your house, or political action.
+
+<div class="accordions-274 accordions" id="accordions-274"><div class="accordions-lazy" id="accordions-lazy-274"> </div> <script>
+            (function($) {
+                $(window).on("load",function(){
+                    $('#accordions-lazy-274').fadeOut();
+                    $('#accordions-274 .items').fadeIn();
+                })
+        })(jQuery);
+        </script><style type="text/css">
+        @media only screen and (min-width: 1024px) {
+            #accordions-274 {
+                width: 100%;
+                            }
+        }
+        @media only screen and (min-width: 768px) and (max-width: 1023px) {
+            #accordions-274 {
+                width: 100%;
+                            }
+        }
+        @media only screen and (min-width: 0px) and (max-width: 767px) {
+            #accordions-274 {
+                width: 100%;
+                            }
+        }
+        #accordions-274 .items {
+            display: none;
+        }
+
+        #accordions-274 .accordions-lazy {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #accordions-274 {
+            text-align: left;
+            background: #ffffff url() repeat scroll 0 0;
+            position: relative;
+        }
+
+        #accordions-274 .accordions-head {
+            background: #1e73be none repeat scroll 0 0;
+            
+                        outline: none;
+        }
+
+        #accordions-274 .accordions-head-title {
+            color: #ffffff;
+            font-size: 16px;
+                    }
+
+        #accordions-274 .accordions-head-title-toggle {
+            color: #ffffff;
+            font-size: 16px;
+                    }
+
+        #accordions-274 .accordions-head:hover .accordions-head-title {
+            color: #ffffff;
+                    }
+
+        #accordions-274 .ui-state-active {
+            background: #174e7f;
+            border: none;
+        }
+
+        #accordions-274 .accordion-content {
+            background: #ffffff none repeat scroll 0 0;
+            border: none;
+        }
+
+        #accordions-274 .accordion-icons {
+                    }
+
+        #accordions-274 .accordions-head:hover .accordion-icons span {
+                    }
+
+            </style><div class="items"><div class="accordions-head head1658964113840 border-none" header_id="header-1658964113840" id="header-1658964113840" itemcount="0" main-text="What did you use to collect the data?" post_id="274" style="" toggle-text=""> <span class="accordion-icons" id="accordion-icons-1658964113840"> <span class="accordion-icon-active accordion-plus"></span> <span class="accordion-icon-inactive accordion-minus"></span> </span> <span class="accordions-head-title" id="header-text-1658964113840">What did you use to collect the data?</span> </div><div class="accordion-content content1658964113840 ">To collect the data, I designed, coded, and assembled a custom Arduino sensor solution, for more details see the "Data Collection Methods" page!
+
+ </div><div class="accordions-head head1658964132447 border-none" header_id="header-1658964132447" id="header-1658964132447" itemcount="1" main-text="How much data did you collect? Over what time?" post_id="274" style="" toggle-text=""> <span class="accordion-icons" id="accordion-icons-1658964132447"> <span class="accordion-icon-active accordion-plus"></span> <span class="accordion-icon-inactive accordion-minus"></span> </span> <span class="accordions-head-title" id="header-text-1658964132447">How much data did you collect? Over what time?</span> </div><div class="accordion-content content1658964132447 ">I collected approximately 750,000 records across 3 sensors for nearly a month. For more details, see the "Data" tab.
+
+ </div><div class="accordions-head head1658964134561 border-none" header_id="header-1658964134561" id="header-1658964134561" itemcount="2" main-text="Why did you do this?" post_id="274" style="" toggle-text=""> <span class="accordion-icons" id="accordion-icons-1658964134561"> <span class="accordion-icon-active accordion-plus"></span> <span class="accordion-icon-inactive accordion-minus"></span> </span> <span class="accordions-head-title" id="header-text-1658964134561">Why did you do this?</span> </div><div class="accordion-content content1658964134561 ">Recently I’ve taken an interest in pollution and its effects on a person’s health. Particularly news about how Volatile Organic Compounds (VOC) and Metal Oxides (MOX) pollution affects rates of dementia, increasing them by nearly 50%. (Clark-Reyna, Grineski, &amp; Collins, 2016). Additionally, these compounds, particularly ozone content, may contribute to several other public health, societal and climate concerns. These include depression, psychological stress, behavioural disorders, cognitive impairments, increased prevalence of Autism Spectrum Disorder (ASD), asthma, respiratory viruses, inflammation, heart disease, stroke, cancer, premature death, low academic achievement, higher crime rates and climate change.
+
+(Manczak, Miller, &amp; Gotlib, 2022; Weir, 2012; Perera, et al., 2013; Clark-Reyna, Grineski, &amp; Collins, 2016; Yuchi, Sbihi, Davies, Tamburic, &amp; Brauer, 2020; Cacciottolo, et al., 2017; World Health Organization, 2018; Winerman, 2019; Sass, et al., 2017; Pagalan, et al., 2019; Lu, Lee, Gino, &amp; Galinsky, 2018 and; Landrigan, et al., 2018. )
+
+ </div> </div> <script>
+   (function($) {
+
+ $( document ).ready( function() {
+            accordions_active_index_274 = [];
+                })})(jQuery);
+    </script><script>
+        (function($) {
+ $( document ).ready( function() {
+            accordion_274 = $("#accordions-274 .items").accordion({
+                event: "click",
+                collapsible: true,
+                heightStyle: "content",
+                animate: ("swing", 1000),
+                navigation: true,
+                active: 999,
+                            });
+        })})(jQuery);
+    </script></div>
