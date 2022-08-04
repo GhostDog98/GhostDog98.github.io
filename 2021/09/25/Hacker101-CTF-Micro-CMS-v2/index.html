@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hacker101 CTF: Micro-CMS v2 | GhostDogBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This is a part of a series I’m doing for the Hacker101 CTF’s. This post will focus on the second CTF, named “Micro-CMS v2”. This has 3 flags, and is rated as “Moderate”. This new CTF boasts several im">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hacker101 CTF: Micro-CMS v2">
+<meta property="og:url" content="http://ghostdogblog.com/2021/09/25/Hacker101-CTF-Micro-CMS-v2/index.html">
+<meta property="og:site_name" content="GhostDogBlog">
+<meta property="og:description" content="This is a part of a series I’m doing for the Hacker101 CTF’s. This post will focus on the second CTF, named “Micro-CMS v2”. This has 3 flags, and is rated as “Moderate”. This new CTF boasts several im">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-25T07:19:06.000Z">
+<meta property="article:modified_time" content="2021-11-30T23:17:49.469Z">
+<meta property="article:author" content="Jake Aronleigh">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="GhostDogBlog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">GhostDogBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ghostdogblog.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Hacker101-CTF-Micro-CMS-v2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/09/25/Hacker101-CTF-Micro-CMS-v2/" class="article-date">
+  <time class="dt-published" datetime="2021-09-25T07:19:06.000Z" itemprop="datePublished">2021-09-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-Writeups/">CTF Writeups</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Hacker101 CTF: Micro-CMS v2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This is a part of a series I’m doing for the <a target="_blank" rel="noopener" href="https://www.hacker101.com/">Hacker101</a> CTF’s.</p>
+<p>This post will focus on the second CTF, named “Micro-CMS v2”. This has 3 flags, and is rated as “Moderate”.</p>
+<p>This new CTF boasts several improvements upon the v1, and has the following on the changelog page in the CTF:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Version 2</span><br><span class="line"></span><br><span class="line">This version fixed the multitude of security flaws and general functionality bugs that plagued v1. Additionally, we added user authentication; we&#x27;re still not sure why we didn&#x27;t think about that the first time, but hindsight is 20/20. By default, users need to be an admin to add or edit pages now.</span><br></pre></td></tr></table></figure>
+
+<h2 id="Flag-0"><a href="#Flag-0" class="headerlink" title="Flag 0"></a>Flag 0</h2><p>Now, editing requires a login, but how can I get into an account without having the login details? Simple, I need a bypass.<br>To test for an SQL injection vulnerability, I simply wrote a single quote into the username box, hit enter, and got this error:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;./main.py&quot;, line 145, in do_login</span><br><span class="line">    if cur.execute(&#x27;SELECT password FROM admins WHERE username=\&#x27;%s\&#x27;&#x27; % request.form[&#x27;username&#x27;].replace(&#x27;%&#x27;, &#x27;%%&#x27;)) == 0:</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/site-packages/MySQLdb/cursors.py&quot;, line 255, in execute</span><br><span class="line">    self.errorhandler(self, exc, value)</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/site-packages/MySQLdb/connections.py&quot;, line 50, in defaulterrorhandler</span><br><span class="line">    raise errorvalue</span><br><span class="line">ProgrammingError: (1064, &quot;You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#x27;&#x27;&#x27;&#x27;&#x27; at line 1&quot;)</span><br></pre></td></tr></table></figure>
+<p>Which reveals some nice information:</p>
+<blockquote>
+<p>The server is running on python (specifically 2.7)<br>It’s using MySQL<br>It’s using an SQL command that does not sanitize any input<br>So, to bypass, I first tried just using <code>&#39; OR 1=1;--</code>, which does not work, maybe I should try a union attack?<br>First I try <code>foo&#39; UNION SELECT &#39;admins&#39;, &#39;dummy&#39;;--</code> as my username, changing the SQL query to:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> password <span class="keyword">FROM</span> admins <span class="keyword">WHERE</span> username<span class="operator">=</span><span class="string">&#x27;foo&#x27;</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;dummy&#x27;</span>;<span class="comment">--&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Which should work, right?<br>Nope, it interestingly decides to give me all the feedback I need to fix this however, and it spits out the following error:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The used SELECT statements have a different number of columns</span><br></pre></td></tr></table></figure>
+<p>To fix this, I simply inputed the same thing, but changed the number of dummy fields:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo<span class="string">&#x27; UNION SELECT &#x27;</span>admins<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;;-- </span></span><br></pre></td></tr></table></figure>
+<p>But it seemed like however many I put in, it still spat out an error, except for when I put ONLY 1 field, “admin”.<br>This still was not quite it though, and it returned with “Invalid password” (putting another dummy value inside of the password field did nothing here). </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ghostdogblog.com/2021/09/25/Hacker101-CTF-Micro-CMS-v2/" data-id="ckwmq2xrf0001s5kg7psnacci" data-title="Hacker101 CTF: Micro-CMS v2" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/09/26/Hacker101-CTF-PostBook/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hacker101 CTF: PostBook
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/25/Hacker101-CTF-Micro-CMS-v1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hacker101 CTF: Micro-CMS v1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-Writeups/">CTF Writeups</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/COVID-19-coronavirus/" rel="tag">COVID-19, coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" rel="tag">bash, MacOS, Anaconda, Conda, Python, Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-macos-macosx/" rel="tag">bash, macos, macosx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/circuit-electronics/" rel="tag">circuit, electronics,</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" rel="tag">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" rel="tag">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/COVID-19-coronavirus/" style="font-size: 10px;">COVID-19, coronavirus</a> <a href="/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" style="font-size: 10px;">bash, MacOS, Anaconda, Conda, Python, Linux</a> <a href="/tags/bash-macos-macosx/" style="font-size: 10px;">bash, macos, macosx</a> <a href="/tags/circuit-electronics/" style="font-size: 10px;">circuit, electronics,</a> <a href="/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" style="font-size: 10px;">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a> <a href="/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" style="font-size: 10px;">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/21/Creating-executables-on-MacOS-from-a-bash-sh-script/">Creating executables on MacOS from a bash (.sh) script</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Generating-large-amounts-of-dummy-data-in-excel/">Generating large amounts of &#39;dummy&#39; data in excel</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/14/Geocaching-Event-Project/">Geocaching Event Project</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/26/Virgin-Media-revealed-to-be-storing-passwords-in-plaintext-posts-password-to-customer/">Virgin Media revealed to be storing passwords in plaintext, posts password to customer</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/26/Making-a-bash-script-to-fix-a-minor-annoyance/">Making a bash script to fix a minor annoyance</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Jake Aronleigh<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
