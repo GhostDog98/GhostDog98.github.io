@@ -1,3 +1,4 @@
+rm -rf ./../blog/*
 rm -rf ./htdocs/
 hexo generate
 touch ./htdocs/.htaccess

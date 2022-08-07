@@ -71,6 +71,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Hacker101-CTF-Micro-CMS-v2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v2/" class="article-date">
+  <time class="dt-published" datetime="2021-09-25T07:19:06.000Z" itemprop="datePublished">2021-09-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/CTF-Writeups/">CTF Writeups</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v2/">Hacker101 CTF: Micro-CMS v2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This is a part of a series I’m doing for the <a target="_blank" rel="noopener" href="https://www.hacker101.com/">Hacker101</a> CTF’s.</p>
+<p>This post will focus on the second CTF, named “Micro-CMS v2”. This has 3 flags, and is rated as “Moderate”.</p>
+<p>This new CTF boasts several improvements upon the v1, and has the following on the changelog page in the CTF:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Version 2</span><br><span class="line"></span><br><span class="line">This version fixed the multitude of security flaws and general functionality bugs that plagued v1. Additionally, we added user authentication; we&#x27;re still not sure why we didn&#x27;t think about that the first time, but hindsight is 20/20. By default, users need to be an admin to add or edit pages now.</span><br></pre></td></tr></table></figure>
+
+<h2 id="Flag-0"><a href="#Flag-0" class="headerlink" title="Flag 0"></a>Flag 0</h2><p>Now, editing requires a login, but how can I get into an account without having the login details? Simple, I need a bypass.<br>To test for an SQL injection vulnerability, I simply wrote a single quote into the username box, hit enter, and got this error:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;./main.py&quot;, line 145, in do_login</span><br><span class="line">    if cur.execute(&#x27;SELECT password FROM admins WHERE username=\&#x27;%s\&#x27;&#x27; % request.form[&#x27;username&#x27;].replace(&#x27;%&#x27;, &#x27;%%&#x27;)) == 0:</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/site-packages/MySQLdb/cursors.py&quot;, line 255, in execute</span><br><span class="line">    self.errorhandler(self, exc, value)</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/site-packages/MySQLdb/connections.py&quot;, line 50, in defaulterrorhandler</span><br><span class="line">    raise errorvalue</span><br><span class="line">ProgrammingError: (1064, &quot;You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#x27;&#x27;&#x27;&#x27;&#x27; at line 1&quot;)</span><br></pre></td></tr></table></figure>
+<p>Which reveals some nice information:</p>
+<blockquote>
+<p>The server is running on python (specifically 2.7)<br>It’s using MySQL<br>It’s using an SQL command that does not sanitize any input<br>So, to bypass, I first tried just using <code>&#39; OR 1=1;--</code>, which does not work, maybe I should try a union attack?<br>First I try <code>foo&#39; UNION SELECT &#39;admins&#39;, &#39;dummy&#39;;--</code> as my username, changing the SQL query to:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> password <span class="keyword">FROM</span> admins <span class="keyword">WHERE</span> username<span class="operator">=</span><span class="string">&#x27;foo&#x27;</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;dummy&#x27;</span>;<span class="comment">--&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Which should work, right?<br>Nope, it interestingly decides to give me all the feedback I need to fix this however, and it spits out the following error:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The used SELECT statements have a different number of columns</span><br></pre></td></tr></table></figure>
+<p>To fix this, I simply inputed the same thing, but changed the number of dummy fields:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo<span class="string">&#x27; UNION SELECT &#x27;</span>admins<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;, &#x27;</span>dummy<span class="string">&#x27;;-- </span></span><br></pre></td></tr></table></figure>
+<p>But it seemed like however many I put in, it still spat out an error, except for when I put ONLY 1 field, “admin”.<br>This still was not quite it though, and it returned with “Invalid password” (putting another dummy value inside of the password field did nothing here). </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ghostdog98.github.io/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v2/" data-id="cl6eduwj80003ookg5on90xin" data-title="Hacker101 CTF: Micro-CMS v2" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Hacker101-CTF-Micro-CMS-v1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v1/" class="article-date">
+  <time class="dt-published" datetime="2021-09-25T03:57:58.000Z" itemprop="datePublished">2021-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v1/">Hacker101 CTF: Micro-CMS v1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This is a part of a series I’m doing for the <a target="_blank" rel="noopener" href="https://www.hacker101.com/">Hacker101</a> CTF’s.</p>
+<p>This first post will focus on the first CTF, named “Micro-CMS v1”. This has 4 flags, and is rated as “Easy”.</p>
+<p>Flag 0<br>This first flag is relitively easy to find, to start off with, I created a page after looking around, and saw that the pages were indexed as such:<br>1, 2, 10<br>Which begs the question, where is 3 to 8?<br>Upon accessing page 6 (by simply typing the url myself), it responds with a 403, which means there is some content on the page, just none I can access. To get to this, I next tried to edit a page, which resolved the URL:<br><code>http://[example]/[user_string]/page/edit/1</code><br>So, what happens if I change the 1 to a 6 here?<br>Bingo, our first flag!</p>
+<h2 id="Flag-1"><a href="#Flag-1" class="headerlink" title="Flag 1"></a>Flag 1</h2><p>For our second flag, we get a hint of trying to tamper with every input, so thats just what i did. I decided to insert <code>&lt;script&gt;alert(0)&lt;/script&gt;</code> everywhere I could, eventually trying the title of a post, and voilla! Upon going to the home page, the XSS activates, and I get my second flag!</p>
+<h2 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag 2"></a>Flag 2</h2><p>Upon editing a page, it is fairly obvious that some sort of SQL request must be sent to retrieve said pages contents, so I decided to add a single quote to the end of the URL, netting us our third flag with an SQL injection vulnerability!</p>
+<p>Flag 3<br>The edit page has a curious statement on the bottom:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Markdown is supported, but scripts are not</span><br></pre></td></tr></table></figure>
+<p>Which begs the question, what about other HTML tags?<br>So I test with a simple <code>&lt;h1&gt;Testing&lt;/h1&gt;</code>, and it turns out that works, so, is there a way to execute code inside of a html element? Yes, there is!</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> &quot;<span class="attr">onclick</span>=<span class="string">alert(0)</span>&quot;&gt;</span>Click me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>aaand, no flag? Curious to see what was going wrong, I took a look using inspect element, and, funnily enough, there was the flag, inside the properties of the button class!</p>
+<p>Done<br>With that, we’ve just completed the first proper CTF!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ghostdog98.github.io/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v1/" data-id="cl6eduwja0006ookgg3yk2zs8" data-title="Hacker101 CTF: Micro-CMS v1" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Linux-Aliases" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2021/09/25/Linux-Aliases/" class="article-date">
@@ -178,7 +286,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/COVID-19-coronavirus/" rel="tag">COVID-19, coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" rel="tag">bash, MacOS, Anaconda, Conda, Python, Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-macos-macosx/" rel="tag">bash, macos, macosx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/circuit-electronics/" rel="tag">circuit, electronics,</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" rel="tag">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" rel="tag">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/COVID-19-coronavirus/" rel="tag">COVID-19, coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/FPGA-programming-icelink/" rel="tag">FPGA, programming, icelink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" rel="tag">bash, MacOS, Anaconda, Conda, Python, Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-macos-macosx/" rel="tag">bash, macos, macosx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/circuit-electronics/" rel="tag">circuit, electronics,</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" rel="tag">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scripting-bash-powershell-cmd-cli/" rel="tag">scripting, bash, powershell, cmd, cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" rel="tag">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a></li></ul>
     </div>
   </div>
 
@@ -188,7 +296,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/COVID-19-coronavirus/" style="font-size: 10px;">COVID-19, coronavirus</a> <a href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" style="font-size: 10px;">bash, MacOS, Anaconda, Conda, Python, Linux</a> <a href="/blog/tags/bash-macos-macosx/" style="font-size: 10px;">bash, macos, macosx</a> <a href="/blog/tags/circuit-electronics/" style="font-size: 10px;">circuit, electronics,</a> <a href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" style="font-size: 10px;">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a> <a href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" style="font-size: 10px;">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a>
+      <a href="/blog/tags/COVID-19-coronavirus/" style="font-size: 10px;">COVID-19, coronavirus</a> <a href="/blog/tags/FPGA-programming-icelink/" style="font-size: 10px;">FPGA, programming, icelink</a> <a href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" style="font-size: 10px;">bash, MacOS, Anaconda, Conda, Python, Linux</a> <a href="/blog/tags/bash-macos-macosx/" style="font-size: 10px;">bash, macos, macosx</a> <a href="/blog/tags/circuit-electronics/" style="font-size: 10px;">circuit, electronics,</a> <a href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" style="font-size: 10px;">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a> <a href="/blog/tags/scripting-bash-powershell-cmd-cli/" style="font-size: 10px;">scripting, bash, powershell, cmd, cli</a> <a href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" style="font-size: 10px;">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a>
     </div>
   </div>
 
@@ -197,7 +305,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
     </div>
   </div>
 
@@ -210,6 +318,14 @@
       <ul>
         
           <li>
+            <a href="/blog/2022/07/16/Cross-Platform-Scripting/">Cross-Platform Scripting!</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2022/07/16/FPGA-Holidays-Adventures/">FPGA Holidays Adventures</a>
+          </li>
+        
+          <li>
             <a href="/blog/2022/03/21/Creating-executables-on-MacOS-from-a-bash-sh-script/">Creating executables on MacOS from a bash (.sh) script</a>
           </li>
         
@@ -219,14 +335,6 @@
         
           <li>
             <a href="/blog/2022/01/14/Geocaching-Event-Project/">Geocaching Event Project</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2021/11/26/Virgin-Media-revealed-to-be-storing-passwords-in-plaintext-posts-password-to-customer/">Virgin Media revealed to be storing passwords in plaintext, posts password to customer</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2021/11/26/Making-a-bash-script-to-fix-a-minor-annoyance/">Making a bash script to fix a minor annoyance</a>
           </li>
         
       </ul>
