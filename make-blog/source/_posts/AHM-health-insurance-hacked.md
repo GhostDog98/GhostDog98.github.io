@@ -5,8 +5,6 @@ tags:
 ---
 In a new twist, AHM, one of the largest health providers in australia, has apparently been hacked!
 In an email sent out to customers this morning, they updated us on a situation where hackers compromised information stored by AHM.
-![First email](/images/IMG_UPDATE_AHM.jpeg)
-![Second email](/images/IMG_UPDATE_2_AHM.jpeg)
 The effected information is supposedly the following:
 > First and last names
 > Addresses
@@ -24,3 +22,6 @@ It will be interesting to see further development with this, and if this attack 
 
 This doesn't look good for AHM, but i'll keep this blog updated with information. 
 
+P.S: Here are the direct emails for anyone interested!
+![First email](/images/IMG_UPDATE_AHM.jpeg)
+![Second email](/images/IMG_UPDATE_2_AHM.jpeg)
