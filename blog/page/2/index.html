@@ -71,6 +71,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Hacker101-CTF-PostBook" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2021/09/26/Hacker101-CTF-PostBook/" class="article-date">
+  <time class="dt-published" datetime="2021-09-26T07:22:32.000Z" itemprop="datePublished">2021-09-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/CTF-Writeups/">CTF Writeups</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2021/09/26/Hacker101-CTF-PostBook/">Hacker101 CTF: PostBook</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This is a part of a series I’m doing for the <a target="_blank" rel="noopener" href="https://www.hacker101.com/">Hacker101</a> CTF’s.</p>
+<p>This post will focus on the seventh CTF, named “Postbook”. This has a whopping 7 flags, and is rated as “Easy”.</p>
+<h2 id="Flag-0"><a href="#Flag-0" class="headerlink" title="Flag 0"></a>Flag 0</h2><p>This site has a login page, after signing up (using test:test as my username:pword), I saw that there was a user called “user”, often this is left behind from default configurations, so, I wonder, is that user using a generic password?<br>Turns out, they are (a password of ‘password’)! Which nets us our first flag!</p>
+<h2 id="Flag-1-and-4"><a href="#Flag-1-and-4" class="headerlink" title="Flag 1 and 4"></a>Flag 1 and 4</h2><p>This one, I accidently got both at once.<br>I had a look at the URL during the edit page, and wondered what would happen if i changed it from “2” to “1”, this did 2 things:<br>Allowed me to EDIT a private post<br>Allowed me to VIEW a private post</p>
+<p>Both of these netting me a flag!</p>
+<h2 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag 2"></a>Flag 2</h2><p>This flag is again a quite interesting one, if you use inspect element to look at how the site formats a POST request for a new post, you would see the following element:<br><code>&lt;input type=&quot;hidden&quot; name=&quot;user_id&quot; value=&quot;2&quot;&gt;</code><br>By simply removing the <code>type=&quot;hidden&quot;</code> part, we can impersonate another user, for example, the admin!<br>Upon posting, we get our flag!</p>
+<h2 id="Flag-3"><a href="#Flag-3" class="headerlink" title="Flag 3"></a>Flag 3</h2><p>This flag is once again trivial, as the clue in hacker101 gives it away: <code>189 * 5</code>. To get this flag, I simply change the post ID to 945.</p>
+<h2 id="Flag-5"><a href="#Flag-5" class="headerlink" title="Flag 5"></a>Flag 5</h2><p>This is where things start getting interesting, in a browser, there are things called cookies, in our postbook example, they make it so you don’t have to sign in every new page, this is extremely useful for the user, however, could we exploit this to login as someone else?</p>
+<p>First things first, I had to be able to view this cookie, to do that, I downloaded the awesome open-source project <a target="_blank" rel="noopener" href="https://github.com/ysard/cookie-quick-manager/">Cookie-Quick-Manager</a>, which allows me to edit and view using a browser extension.<br>This cookie had 2 fields, “session” and “id”. I assumed ID was for user ID (as the rest of the website used this as well), but it was just jumbled garbage at the moment, it didnt just say “2” for my user ID, it said “c81e728d9d4c2f636f067f89cc14862c”. This string of text, i thought, might be a hash of the number 2, so I decided to run it through a <a target="_blank" rel="noopener" href="https://md5hashing.net/hash">hash reverse lookup</a>, and to my surprise, it spat out the number 2, telling me that it was an MD5 hash.<br>After this, I simply encoded the number “1” in MD5, and edited the cookie.<br>This gave me my flag, only 1 more to go!</p>
+<h2 id="Flag-6"><a href="#Flag-6" class="headerlink" title="Flag 6"></a>Flag 6</h2><p>The clue for this one is:<br><code>Deleting a post seems to take an ID that is not a number. Can you figure out what it is?</code></p>
+<p>First things first, I copied the link to the “delete” page, and inspected it:<br><code>/index.php?page=delete.php&amp;id=eccbc87e4b5ce2fe28308fd9f2a7baf3</code><br>So it’s calling “delete.php” with a parameter “id” which appears to be a hash.<br>So, once again, I put this hash into a reverse lookup tool (see above), and selected MD5, crossed my fingers, and, it put out “3”, which was the ID of the post I wanted to remove!<br>So, I decided to try and remove the first ever post by the admin (“Hello world”).<br>To do so, I just needed to visit this link:<br><code>/index.php?page=delete.php&amp;id=c4ca4238a0b923820dcc509a6f75849b</code><br>And this gives us our flag, as well as deleting the admins post, while being logged in as any user!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ghostdog98.github.io/blog/2021/09/26/Hacker101-CTF-PostBook/" data-id="cl6eduwj90004ookg6crreprr" data-title="Hacker101 CTF: PostBook" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Hacker101-CTF-Micro-CMS-v2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2021/09/25/Hacker101-CTF-Micro-CMS-v2/" class="article-date">
@@ -305,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
     </div>
   </div>
 
@@ -316,6 +369,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2022/10/21/AHM-health-insurance-hacked/">AHM health insurance hacked!</a>
+          </li>
         
           <li>
             <a href="/blog/2022/07/16/Cross-Platform-Scripting/">Cross-Platform Scripting!</a>
@@ -331,10 +388,6 @@
         
           <li>
             <a href="/blog/2022/03/01/Generating-large-amounts-of-dummy-data-in-excel/">Generating large amounts of &#39;dummy&#39; data in excel</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2022/01/14/Geocaching-Event-Project/">Geocaching Event Project</a>
           </li>
         
       </ul>
