@@ -53,7 +53,7 @@ int main(){
 ```
 
 Here, you can see the full setup (Spoilers!!)
-![Full Geocache](/images/geocache.png)
+![Full Geocache](/blog/images/geocache.png)
 Yellow wires are reed switch, red and yellow go to the display, backed with a perf. board since the leads by themselves are a bit flimsy. Red and black are the battery. 
 
 ### Important to Note:
