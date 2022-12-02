@@ -8,7 +8,7 @@ So it turns out, that the vaccine certificate that is given to Australian citize
 After loading the PDF, all a potential forgery needs to do is to format the watermark in a special way. 
 
 To showcase this, I simply decided to make my own "totally legitimate" copy:
-![Fake Vaccine Passport](/images/totallylegit_fake.png)
+![Fake Vaccine Passport](/blog/images/totallylegit_fake.png)
 
 Once again, the goverment has failed at a basic technological hurdle, as fixing this would only require that they, instead of giving a PDF, give an image, which will not preserve the layering, making it harder to edit the document. 
 
