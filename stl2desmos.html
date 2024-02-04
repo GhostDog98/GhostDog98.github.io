@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STL Processor</title>
+</head>
+<body>
+    <input type="file" id="fileInput" accept=".stl" />
+    <button onclick="processUploadedFile()">Process STL</button>
+
+    <script>
+        function formatScientificNotation(number) {
+            if (!number.includes("e")) {
+                return number;
+            }
+            if (number === "0.0") {
+                return number;
+            }
+
+            number = number.replace(/e/g, "*10^{");
+            number = number.replace(/{-0/g, "{-");
+            number = number.replace(/{0/g, "{");
+            number = number.replace(/}\*10{/g, "}*10^");
+            number += "}";
+
+            return number;
+        }
+
+        function trimLeadingSpaces(str) {
+            return str.trimLeft();
+        }
+
+        function processSTL(stl, outputFileName) {
+            const lines = stl.split('\n');
+            let outputFile = "";
+            let faceDimensionsAdded = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const trimmedLine = trimLeadingSpaces(lines[i]);
+
+                if (trimmedLine[0] === 'v') {
+                    const match = trimmedLine.match(/vertex\s+(\S+)\s+(\S+)\s+(\S+)/);
+                    if (match) {
+                        if (faceDimensionsAdded) {
+                            outputFile += ", ";
+                        }
+
+                        const [_, x, y, z] = match;
+                        outputFile += `(${formatScientificNotation(x)}, ${formatScientificNotation(y)}, ${formatScientificNotation(z)})`;
+                        faceDimensionsAdded = true;
+                    }
+                } else if (trimmedLine === 'endloop') {
+                    outputFile += "\\right)\n";
+                    faceDimensionsAdded = false;
+                } else if (trimmedLine[0] === 'f') {
+                    outputFile += "\\triangle\\left(";
+                } else if (trimmedLine[0] === '') {
+                    outputFile += "\n";
+                }
+            }
+            outputFile += "\n";
+
+            // Create a Blob with the processed content
+            const blob = new Blob([outputFile], { type: 'text/plain' });
+
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = window.URL.createObjectURL(blob);
+            downloadLink.download = outputFileName;
+
+            // Append the link to the body and trigger a click
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+            // Remove the link from the body
+            document.body.removeChild(downloadLink);
+        }
+
+        function processUploadedFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select an STL file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const stlData = event.target.result;
+                processSTL(stlData, 'output.txt');
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
